@@ -74,23 +74,24 @@ def sort(array):
 
 
             
-            
+        #基準の値と比較している値を比較して次のリストを決定
         if new_list[search_left_num] <= baise_item:
             left_list = new_list[:search_left_num+1]
         else:
             left_list = new_list[:search_left_num]
-        
-        if len(left_list) == 0:
-            pass
-        elif len(left_list) == 1:
-            goal_list.append(left_list[0])
-        else:
-            split_sort(left_list, left_list[0])
 
         if new_list[search_right_num] >= baise_item:
             right_list = new_list[search_right_num:]
         else:
             right_list = new_list[search_right_num+1:]
+        
+        #リストの要素数によって次の行動を変える
+        if len(left_list) == 0: #0個ならスルー
+            pass 
+        elif len(left_list) == 1: #1個ならゴールのリストに追加
+            goal_list.append(left_list[0])
+        else: #1個より多いならなら再帰関数に入れる
+            split_sort(left_list, left_list[0])
 
         if len(right_list) == 0:
             pass
@@ -99,7 +100,7 @@ def sort(array):
         else:
             split_sort(right_list, right_list[0])
 
-
+    #関数にリストと先頭の値を入れる
     split_sort(array, pivot)
 
     return goal_list
